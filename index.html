@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Urban Displacement Portland Map</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <link rel="shortcut icon" href="http://cartodb.com/assets/favicon.ico" />
+    <style>
+      html, body, #map {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+      #layerSelectionContainer .dropdown {
+        top: 25px;
+        left: 75px;
+        position: absolute;
+      }
+      #mapContainer {
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        position: absolute;
+      }
+      .scrollable-menu {
+    height: auto;
+    max-height: 550px;
+    overflow-x: hidden;
+}
+    </style>
+    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+  </head>
+  <body>
+    <div id="mapContainer"></div>
+    <div id="layerSelectionContainer">
+      <div class="dropdown">
+        <!-- this button style is from the Bootstrap library -->
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Choose parameter to map <span class="caret"></span>
+        </button>
+
+        <ul class="dropdown-menu scrollable-menu" id="layer-selector">
+          <li data-url="https://manny.carto.com/api/v2/viz/e0df88b2-c978-4d01-9c18-fa40976af4d6/viz.json"><a href="#">Typology followed by Bates' methodology, 2000-2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/32653f79-66d6-4f19-b7db-49eafdfd7996/viz.json"><a href="#">Typology followed by Bates' methodology, 2010-2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/faaded3d-35ec-495b-b52e-fb963bb7ca07/viz.json"><a href="#">Typology followed by UDP methodology, 2000-2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/060f2d65-3bf2-4f23-8612-2035e4b62075/viz.json"><a href="#">Typology followed by UDP methodology, 2010-2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/2277cf8c-2004-41ca-9dd4-8ed84e965bff/viz.json"><a href="#">Moderate-High Income and Lower Income tracts in 2000</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/d0a68d98-0143-478f-ac51-798364b478f6/viz.json"><a href="#">Moderate-High Income and Lower Income tracts in 2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/ee8b66af-1ab0-4ca4-bc95-3d77ddc9bbdc/viz.json"><a href="#">Moderate-High Income and Lower Income tracts in 2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/b4d3352e-ec87-4b9d-9d47-984bac842f60/viz.json"><a href="#">Median household income 2000</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/4b6b48b1-f637-4c3c-92b4-8802358bbf65/viz.json"><a href="#">Median household income 2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/f86dacc4-654b-4f07-9e57-e1030edf86b5/viz.json"><a href="#">Median household income 2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/9b279d23-3e95-429a-b2f9-cb125dee9794/viz.json"><a href="#">% change in median household income, 2000-2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/fdbb46a6-7a42-4b75-8ec6-55adcb7a9494/viz.json"><a href="#">% change in median household income, 2010-2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/ced2f402-e5d0-4862-950e-3511b6fbce81/viz.json"><a href="#">% change in homeownership, 2000-2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/d5bfa2bc-cb9f-467a-9db7-ba3fc51006d0/viz.json"><a href="#">% change in homeownership, 2010-2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/247075ba-5f2c-4eb6-a791-5b47e3d5697e/viz.json"><a href="#">% non-white in 2000</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/2a6558f1-2dfe-42f3-bd72-edf02da9f03b/viz.json"><a href="#">% non-white in 2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/f3e6ef61-db7b-44c9-964f-36bf20a0c2b3/viz.json"><a href="#">% non-white in 2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/d391fc8f-9bf6-49cc-8240-29a5bb56fc60/viz.json"><a href="#">% change in non-white population, 2000-2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/0fca2fd3-3fd2-4f9e-8b7b-26e3ed2eeb77/viz.json"><a href="#">% change in non-white population, 2010-2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/6db360b8-f1ab-4b2f-a998-093c56c1ade0/viz.json"><a href="#">% college educated in 2000 (25+)</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/30a4704c-1881-4a38-b941-0e74ca271557/viz.json"><a href="#">% college educated in 2010 (25+)</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/99a7c350-772e-4fc4-afb5-e8a5e3771d4c/viz.json"><a href="#">% college educated in 2015 (25+)</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/5faac60e-e36a-43f0-a3af-6c36c630a413/viz.json"><a href="#">% change in college educated, 2000-2010 (25+)</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/bb8401ea-b795-4ba3-9680-dd9badae7f92/viz.json"><a href="#">% change in college educated, 2010-2015 (25+)</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/27d05e7a-7c47-406d-8a49-3ca0553fab36/viz.json"><a href="#">% low-income households (at or below 80% HAMFI) in 2000</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/075866e8-b489-4739-8972-55b5c86d4a14/viz.json"><a href="#">% low-income households (at or below 80% HAMFI) in 2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/e54ebdea-9416-4332-825d-4b28ba8c0c15/viz.json"><a href="#">% low-income households (at or below 80% HAMFI) in 2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/38b27f83-ac97-4739-ad1c-1d8fc9fad51c/viz.json"><a href="#">% change in low-income households, 2000-2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/ff8ad6de-0c5e-43eb-a4cc-6b66acb75480/viz.json"><a href="#">% change in low-income households, 2010-2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/6dc2f932-fb61-4aac-9be7-5de43c5b8324/viz.json"><a href="#">% renter in 2000</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/ae7d14f7-1499-4282-8b8f-67f128395d8e/viz.json"><a href="#">% renter in 2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/ca6eab90-d4ed-4c90-9247-92d0de166799/viz.json"><a href="#">% renter in 2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/fcee71b0-2da4-47da-8332-89c916f1f515/viz.json"><a href="#">% change in renter, 2000-2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/7b400532-59c6-400b-bcea-36956257a9a2/viz.json"><a href="#">% change in renter, 2010-2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/2cd5202f-7d08-4c52-bbc6-40a7a1d52720/viz.json"><a href="#">Employment Density: jobs per square mile in 2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/50ea726a-7f10-48d1-8b12-519cfcf0cbf1/viz.json"><a href="#">% units built before 1970 in 2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/2a4e04d2-b61e-40ce-b6a6-f80df5f61a7a/viz.json"><a href="#">% units built before 1970 in 2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/cef9310d-c364-4f70-bf06-9a5c47526d0e/viz.json"><a href="#">% units built prewar in 2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/48eebab8-0c6a-4b31-a5b4-10186798fc10/viz.json"><a href="#">% units built prewar in 2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/8c1c160b-46c5-4803-99f2-53d82bd12881/viz.json"><a href="#">In-migration of low-income households in 2010 (#)</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/edc7be84-eacb-4103-b315-3b11ba7b91d9/viz.json"><a href="#">In-migration of low-income households in 2015 (#)</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/735b53da-b235-4eeb-a27c-d11ff8785808/viz.json"><a href="#">% change in-migration of low-income households, 2009-2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/1d32a1af-cbae-43c7-bbcf-144de121a328/viz.json"><a href="#">% change in-migration of low-income households, 2010-2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/9048cc70-9855-400e-b9bf-537a67922ba4/viz.json"><a href="#">Rent in 2000</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/4a1c5b97-b547-427b-9a4a-5d9196815406/viz.json"><a href="#">Rent in 2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/e1c93623-2df4-4052-b777-7606b6c867e7/viz.json"><a href="#">Rent in 2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/a591d47b-7728-424a-bbb1-def7f869748e/viz.json"><a href="#">% change in rent, 2000-2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/8a3679a9-7ea0-42c7-be8f-2423fcbe8d81/viz.json"><a href="#">% change in rent, 2010-2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/836a4b7a-154b-4088-893c-4bd7ff062b8e/viz.json"><a href="#">Population in 2000</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/795441e1-8c07-4c5e-bb6d-6820df0c393b/viz.json"><a href="#">Population in 2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/a2e9727a-0d9f-40d4-8b25-67688a5bf8d2/viz.json"><a href="#">Population in 2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/38175930-cb7d-4b6e-8f4e-042de0f3bea5/viz.json"><a href="#">% change in population, 2000-2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/767a6824-9a68-40eb-acb0-c42763ffa0bb/viz.json"><a href="#">% change in population, 2010-2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/d1d44c41-2eb2-4cf5-a6ac-1107e449a952/viz.json"><a href="#">Change in market rate units 2000-2010 (#)</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/d9d0b7ec-266e-48f9-a795-c8a56a74440f/viz.json"><a href="#">Change in market rate units 2010-2015 (#)</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/1c395d86-7bd2-4e71-8725-beb97eb899fe/viz.json"><a href="#"># of market rate affordable housing for low-income households in 2000</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/dc98deed-5023-48cf-840d-75639e6330c0/viz.json"><a href="#">% market rate affordable housing for low-income households in 2000</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/eefe4d19-e7df-40df-8485-9ee54dd66fb2/viz.json"><a href="#"># of market rate affordable housing for low-income households in 2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/e562e95e-78c7-4e32-9bbf-e28f06573a76/viz.json"><a href="#">% market rate affordable housing for low-income households in 2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/f4a081da-5a93-421b-890d-1f403578082f/viz.json"><a href="#"># of market rate affordable housing for low-income households in 2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/1a88f7dc-f32b-4ea1-8f99-475b183d335e/viz.json"><a href="#">% market rate affordable housing for low-income households in 2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/c60f5ab4-eba5-4ed6-8723-4f896ee70d27/viz.json"><a href="#">% change in market rate affordable housing for low-income households, 2000-2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/9d5fb4dd-4383-4cec-ab6e-2b9e05b82caa/viz.json"><a href="#">% change in market rate affordable housing for low-income households, 2010-2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/c527e591-3de2-433c-8f72-9eeda7bc6dac/viz.json"><a href="#">Median home value in 2000</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/40ed2921-0152-4156-8135-d2efb0b21893/viz.json"><a href="#">Median home value in 2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/1034b942-339d-4856-a261-eac79ea018ce/viz.json"><a href="#">Median home value in 2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/81fe3770-2f4d-426e-8817-4de536ff7023/viz.json"><a href="#">Ratio of tract median home value to the citywide median home value in 2000</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/722afbeb-d5fa-4123-86fa-a5cbc703b53d/viz.json"><a href="#">Ratio of tract median home value to the citywide median home value in 2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/407cae0e-722d-498e-a15b-249e948dfd97/viz.json"><a href="#">Ratio of tract median home value to the citywide median home value in 2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/90e44fb6-957e-4a29-9a73-4568b4f10ac6/viz.json"><a href="#">% change in median home value 1990-2000</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/7ffdf5a6-8d41-42fb-8112-30f1c600426d/viz.json"><a href="#">% change in median home value 2000-2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/1b4682c1-7c00-4b8f-b345-a4feb0e2f8a6/viz.json"><a href="#">% change in median home value 2010-2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/90e44fb6-957e-4a29-9a73-4568b4f10ac6/viz.json"><a href="#">% change in median home value 1990-2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/527b62f9-607d-4c59-814d-2db89c02cc89/viz.json"><a href="#">% change in median home value 2000-2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/3627516f-b5ce-48ba-a1be-ac848cbfd55c/viz.json"><a href="#">Zillow rent index in 2010 by neighborhoods</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/62bde791-5052-4a41-af4e-6fc8cea42176/viz.json"><a href="#">Zillow rent index in 2015 by neighborhoods</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/5b16255c-c257-42d6-87a2-8e2ef9c55e63/viz.json"><a href="#">Median home sale price in 2000</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/31a07c64-2baf-4a3a-99e7-e9ab943ec500/viz.json"><a href="#">Median home sale price in 2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/ce9b5af9-dfb6-4716-ab96-c8cb3dc08312/viz.json"><a href="#">Median home sale price in 2015</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/7bcd6d1b-9c59-47d8-88c7-5aa97ed8bbc1/viz.json"><a href="#">% change in median home sale price, 2000-2010</a></li>
+          <li data-url="https://manny.carto.com/api/v2/viz/a78f4fc7-d247-48bb-8cb5-ae57d528de01/viz.json"><a href="#">% change in median home sale price, 2010-2015</a></li>
+
+        </ul>
+      </div>
+    </div>
+
+    <script>
+    // set the initial map options and url here
+      var INITIAL_MAP_SETTINGS = {
+        detectRetina: true,
+        center_lat: 39.5,
+        center_lon: -98.35,
+        zoom: 4.5
+      }
+
+      var INITIAL_VISJSON_URL = $('#layer-selector .active').data('url');
+
+      function getVisLayer() {
+        // returns the CartoDB visualization layer
+        var layers = activeVis.getLayers();
+        return layers[1].getSubLayer(0);
+      }
+
+      window.onload = function() {
+        $("#mapContainer").append("<div id='map'></div>");
+        // Choose center and zoom level
+        var options = {
+          center: [45.521069, -122.651820],
+          zoom: 11
+        }
+        // Instantiate map on specified DOM element
+        map_object = new L.Map('map', options);
+
+        var firstlayer = 'https://manny.carto.com/api/v2/viz/e0df88b2-c978-4d01-9c18-fa40976af4d6/viz.json';
+        cartodb.createLayer(map_object, firstlayer).addTo(map_object).on('done', function(layer) {
+          layer1= layer;
+        });
+        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+        }).addTo(map_object);
+      };
+
+    //Function to remove old layers
+      function removeAllLayersExcept(new_layer) {
+        console.log('new_layer._leaflet_id:' + new_layer._leaflet_id);
+        var layer_index = 0;
+        map_object.eachLayer(function(layer) {
+          if (layer_index > 0 && layer._leaflet_id != new_layer._leaflet_id && layer._leaflet_id) {
+            console.log('layer removed:' + layer._leaflet_id);
+            setTimeout(function () { // give a little time before removing previous tile layer because new one will appear with some transition.
+              map_object.removeLayer(layer);
+            }, 500);
+          }
+          layer_index++;
+        });
+      }
+      $('#layer-selector li').click(function() {
+        var url = $(this).data('url');
+
+      cartodb.createLayer(map_object, url)
+        .addTo(map_object).on('done', function(layer) {
+          removeAllLayersExcept(layer);
+        });
+      });
+    </script>
+  </body>
+</html>
