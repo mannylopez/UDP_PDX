@@ -1,0 +1,28 @@
+html, body, #map {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+#layerSelectionContainer .dropdown {
+    top: 25px;
+    left: 75px;
+    position: absolute;
+}
+
+#mapContainer {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    position: absolute;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 550px;
+    overflow-x: hidden;
+}
