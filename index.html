@@ -5,45 +5,27 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <link rel="shortcut icon" href="http://cartodb.com/assets/favicon.ico" />
-    <style>
-      html, body, #map {
-        height: 100%;
-        padding: 0;
-        margin: 0;
-      }
-      #layerSelectionContainer .dropdown {
-        top: 25px;
-        left: 75px;
-        position: absolute;
-      }
-      #mapContainer {
-        border-top: 1px solid #ccc;
-        border-bottom: 1px solid #ccc;
-        margin-left: 0;
-        margin-right: 0;
-        width: 100%;
-        height: 100%;
-        padding: 0;
-        position: absolute;
-      }
-      .scrollable-menu {
-    height: auto;
-    max-height: 550px;
-    overflow-x: hidden;
-}
-    </style>
     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+    <script src="./index.js"></script>
   </head>
   <body>
     <div id="mapContainer"></div>
     <div id="layerSelectionContainer">
       <div class="dropdown">
-        <!-- this button style is from the Bootstrap library -->
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Choose parameter to map <span class="caret"></span>
+        <button
+                class="btn btn-default dropdown-toggle"
+                type="button"
+                id="dropdownMenu1"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="true"
+        >
+            Choose parameter to map <span class="caret"></span>
         </button>
 
         <ul class="dropdown-menu scrollable-menu" id="layer-selector">
@@ -128,69 +110,9 @@
           <li data-url="https://manny.carto.com/api/v2/viz/ce9b5af9-dfb6-4716-ab96-c8cb3dc08312/viz.json"><a href="#">Median home sale price in 2015</a></li>
           <li data-url="https://manny.carto.com/api/v2/viz/7bcd6d1b-9c59-47d8-88c7-5aa97ed8bbc1/viz.json"><a href="#">% change in median home sale price, 2000-2010</a></li>
           <li data-url="https://manny.carto.com/api/v2/viz/a78f4fc7-d247-48bb-8cb5-ae57d528de01/viz.json"><a href="#">% change in median home sale price, 2010-2015</a></li>
-
         </ul>
       </div>
     </div>
 
-    <script>
-    // set the initial map options and url here
-      var INITIAL_MAP_SETTINGS = {
-        detectRetina: true,
-        center_lat: 39.5,
-        center_lon: -98.35,
-        zoom: 4.5
-      }
-
-      var INITIAL_VISJSON_URL = $('#layer-selector .active').data('url');
-
-      function getVisLayer() {
-        // returns the CartoDB visualization layer
-        var layers = activeVis.getLayers();
-        return layers[1].getSubLayer(0);
-      }
-
-      window.onload = function() {
-        $("#mapContainer").append("<div id='map'></div>");
-        // Choose center and zoom level
-        var options = {
-          center: [45.521069, -122.651820],
-          zoom: 11
-        }
-        // Instantiate map on specified DOM element
-        map_object = new L.Map('map', options);
-
-        var firstlayer = 'https://manny.carto.com/api/v2/viz/e0df88b2-c978-4d01-9c18-fa40976af4d6/viz.json';
-        cartodb.createLayer(map_object, firstlayer).addTo(map_object).on('done', function(layer) {
-          layer1= layer;
-        });
-        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
-          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
-        }).addTo(map_object);
-      };
-
-    //Function to remove old layers
-      function removeAllLayersExcept(new_layer) {
-        console.log('new_layer._leaflet_id:' + new_layer._leaflet_id);
-        var layer_index = 0;
-        map_object.eachLayer(function(layer) {
-          if (layer_index > 0 && layer._leaflet_id != new_layer._leaflet_id && layer._leaflet_id) {
-            console.log('layer removed:' + layer._leaflet_id);
-            setTimeout(function () { // give a little time before removing previous tile layer because new one will appear with some transition.
-              map_object.removeLayer(layer);
-            }, 500);
-          }
-          layer_index++;
-        });
-      }
-      $('#layer-selector li').click(function() {
-        var url = $(this).data('url');
-
-      cartodb.createLayer(map_object, url)
-        .addTo(map_object).on('done', function(layer) {
-          removeAllLayersExcept(layer);
-        });
-      });
-    </script>
   </body>
 </html>
